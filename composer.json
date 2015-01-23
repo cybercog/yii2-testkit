@@ -1,0 +1,18 @@
+{
+    "name": "pyd/yii2-testkit",
+    "description": "Some php classes as testing tools based on facebook php-webdriver api.",
+    "license": "MIT",
+    "support": {
+        "source": "https://github.com/pyd/yii2-testkit"
+    },
+    "authors": [
+        {
+            "name": "Pierre-Yves DELETTRE",
+            "email": "pyd001@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "facebook/webdriver": "dev-master"
+    }
+}
