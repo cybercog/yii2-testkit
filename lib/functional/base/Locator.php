@@ -57,7 +57,8 @@ class Locator {
      * @throws InvalidParamException
      * @throws Exception
      */
-    public function addLocation($alias, $mechanism, $value, $overwrite = FALSE){
+    public function addLocation ($alias, $mechanism, $value, $overwrite = FALSE) {
+
         if(!is_string($alias)){
             throw new InvalidParamException(__METHOD__." \$alias param must be a string.");
         }elseif(!method_exists('WebDriverBy', $mechanism)){
@@ -65,6 +66,7 @@ class Locator {
         }elseif(!is_string($value)){
             throw new InvalidParamException(__METHOD__." \$value param must be a string.");
         }
+
         if($overwrite || (!isset($this->location))){
             $this->locations[$alias] = [$mechanism, $value];
         }else{
@@ -75,7 +77,7 @@ class Locator {
     /**
      * @return array
      */
-    public function getLocations(){
+    public function getLocations () {
         return $this->locations;
     }
 
@@ -85,7 +87,8 @@ class Locator {
      * @return array
      * @throws InvalidParamException unknown alias
      */
-    public function getLocation($alias){
+    public function getLocation ($alias) {
+
         if(isset($this->locations[$alias])){
             return $this->locations[$alias];
         }else{
@@ -98,7 +101,7 @@ class Locator {
      * @param string $alias
      * @return boolean alias exists
      */
-    public function hasLocation($alias){
+    public function hasLocation ($alias) {
         return isset($this->locations[$alias]);
     }
 
@@ -106,37 +109,39 @@ class Locator {
      * @param array|string $location {@see resolveLocation}.
      * @return WebDriverBy instance
      */
-    public function createWebDriverBy($location){
+    public function createWebDriverBy ($location) {
+
         $location = $this->resolveLocation($location);
         list($mechanism, $value) = $location;
         return \WebDriverBy::$mechanism($value);
     }
 
     /**
-     * @brief Retourne un array contenant les données pour créer une instance de
-     * WebDriverBy. Le premier est le $mechanism (nom de méthode) et le second la
-     * valeur (argument de méthode) requis pour créer une instance de WebDriverBy.
+     * @brief Resolve $location if it is a string (alias) & check $location if
+     * it is an array.
      *
-     * @detail L'argument peut être une string (on recherchera l'alias correspondant
-     * dans {@see $locations} ou un array. Il devra être au format ['mecanisme', 'valeur'].
-     *
-     * @param array|string $location
+     * @param array|string $location alias or array[$mechanism, $value]
      * @return array
      * @throws Exception $location is a string but not an alias
      * @throws InvalidParamException $location[0] is not a {@link WebDriverBy::$mechanism}
      * @throws InvalidParamException $location[1] is not a string
      * @throws InvalidParamException $location is neither an array nor a string
      */
-    protected function resolveLocation($location){
+    protected function resolveLocation ($location) {
+
         if(is_string($location)){
+
             if(isset($this->locations[$location])){
                 return $this->locations[$location];
             }else{
                 throw new \Exception("Location alias '$location' does not exist.");
             }
+
         }elseif(is_array($location)){
+
             $mechanism = $location[0];
             $value = $location[1];
+
             if(!is_string($mechanism) || !method_exists('WebDriverBy', $mechanism)){
                 throw new InvalidParamException("If ".__METHOD__." \$location param is an array, its first item must be a WebDriverBy method name.");
             }elseif(!is_string($value)){
@@ -144,6 +149,7 @@ class Locator {
             }else{
                 return $location;
             }
+
         }else{
             throw new InvalidParamException(__METHOD__." \$location param must be a string or an array.");
         }

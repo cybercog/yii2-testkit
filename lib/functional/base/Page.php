@@ -36,7 +36,7 @@ class Page {
      * Http request for this page
      * @param array $params
      */
-    public function open(array $params = []){
+    public function open (array $params = []) {
         // create url based on $this->route and $params with UrlManager
         // request page with RemoteWebDriver::get($url)                         // require webDriver object
         // wait page completely loaded
@@ -46,14 +46,14 @@ class Page {
     /**
      * Wait page loaded
      */
-    public function waitLoadComplete(){
+    public function waitLoadComplete () {
         // check it with js: when document.readyState returns true              // require webDriver object
     }
 
     /**
      * Page is displayed without exception/error
      */
-    public function isDisplayed(){
+    public function isDisplayed () {
         // check page is well displayed:
         //  - can be an element reference in the DOM                            // require webDriver object
         //  - check response http code (400..., 500...)
@@ -65,21 +65,21 @@ class Page {
     /**
      * Page source code
      */
-    public function getSource(){
+    public function getSource () {
         // RemoteWebDriver::getSource();
     }
 
     /**
      * Page title tag content
      */
-    public function getTitle(){
+    public function getTitle () {
         // page title using RemoteWebDriver
     }
 
     /**
      * refresh the page
      */
-    public function refresh(){
+    public function refresh () {
         // WebDriverNavigation::refresh
         // RemoteWebDriver::navigate()::refresh()
     }
